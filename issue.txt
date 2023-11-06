@@ -1,0 +1,19 @@
+## 実行コマンドとローカルホストと終了コマンド
+node app.js　
+http://localhost:3000
+ctrl+c
+nodebrew use v14.2.0
+
+## 初期設定
+// list2-1(p56)1106
+// app.js
+// httpを用意
+const http = require('http');
+// サーバーを用意
+var server = http.createServer(
+    (request,response) => {
+        response.end('Hello Node.js!');
+    }
+);
+// 待ち受け開始
+server.listen(3000);
