@@ -1,4 +1,4 @@
-// list2-3(p70)1107
+// list2-5(p77)1107
 // app.js
 
 /* 
@@ -13,21 +13,16 @@
 */
 
 const http = require('http');
+const fs = require('fs');
 
 var server = http.createServer(
     (request, response) => {
-        // ヘッダー項目を設定するメソッド（コンテンツ種類, テキストタイプでhtml形式）
-        response.setHeader('Content-Type', 'text/html');
-        // 情報の出力をwriteで区切る事も可能
-        response.write('<!DOCTYPE html><html lang="ja">');
-        response.write('<head><meta charset="utf-8">');
-        response.write('<title>Hello</title></head>');
-        response.write('<body><h1>Hello Node.js!</h1>');
-        response.write('<p>This is Node.js sample page.</p>');
-        response.write('<p>これは、Node.jsのサンプルページです。</p>', 'utf8');
-        response.write('</body></html>');
-        // endで終了する
-        response.end('');
+        fs.readFile('./index.html', 'UTF-8',
+            (error, data) => {
+                response.writeHead(200, { 'Content-Type': 'text/html' });
+                response.write(data);
+                response.end();
+            })
     }
 );
 
