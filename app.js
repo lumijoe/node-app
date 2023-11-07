@@ -1,4 +1,4 @@
-// list2-5(p77)1107
+// list2-6(p79)1107
 // app.js
 
 /* 
@@ -15,17 +15,23 @@
 const http = require('http');
 const fs = require('fs');
 
-var server = http.createServer(
-    (request, response) => {
-        fs.readFile('./index.html', 'UTF-8',
-            (error, data) => {
-                response.writeHead(200, { 'Content-Type': 'text/html' });
-                response.write(data);
-                response.end();
-            })
-    }
-);
+var server = http.createServer(getFromClient);
 
 server.listen(3000);
-// 起動実行の視覚化
 console.log('Server start!');
+
+// ここまでメインプログラム========
+
+// createServerの処理
+function getFromClient(req, res) {
+    request = req;
+    response = res;
+    // ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
+    fs.readFile('./index.html', 'UTF-8',
+        (error, data) => {
+            response.writeHead(200, {' Content-Type': 'text/html' });
+            response.wrhite(data);
+            response.end();
+        }
+    );
+}
