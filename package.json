@@ -1,0 +1,17 @@
+{
+  "name": "node-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "http": "0.0.1-security",
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {}
+}
