@@ -1,6 +1,16 @@
 ## 実行コマンドとローカルホストと終了コマンド
-1:node app.js　
+1:node app.js（nodemon導入前）　
 2:http://localhost:3000
 ctrl+c
 nodebrew use v14.2.0
 
+## リロード作業の効率化
+nodemonの導入
+1：package.json追加
+2：npm install -g nodemon
+3：npm install --save-dev nodemon
+4：package.jsonのscriptsでnodemonで起動できるようにテキストを修正
+    "scripts": {
+        "dev": "nodemon app.js"
+    },
+5：npm run devで起動実行が可能になる（nodemon導入後）
