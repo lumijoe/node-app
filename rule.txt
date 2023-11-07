@@ -5,6 +5,8 @@
 ctrl+c
 nodebrew use v14.2.0
 
+## Githubコミット例： git commit -m "page67-69"
+
 ## 追跡しやすくデバッグしやすくするためのrule.txt
     // list2-1(p56)1106　（技術書のリストNo.、ページ数、更新日付を記入）
     // app.js (２行目はファイル名を記入)
