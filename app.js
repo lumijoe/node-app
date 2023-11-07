@@ -29,8 +29,8 @@ function getFromClient(req, res) {
     // ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
     fs.readFile('./index.html', 'UTF-8',
         (error, data) => {
-            response.writeHead(200, {' Content-Type': 'text/html' });
-            response.wrhite(data);
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(data);
             response.end();
         }
     );
