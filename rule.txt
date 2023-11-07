@@ -1,5 +1,31 @@
+## 実行コマンドとローカルホストと終了コマンド
+1:node app.js　
+2:http://localhost:3000
+ctrl+c
+nodebrew use v14.2.0
+
 ## 追跡しやすくデバッグしやすくするためのrule.txt
-// list2-1(p56)1106　（技術書のリストNo.、ページ数、更新日付を記入）
-// app.js (２行目はファイル名を記入)
+    // list2-1(p56)1106　（技術書のリストNo.、ページ数、更新日付を記入）
+    // app.js (２行目はファイル名を記入)
 
 ## 違和感箇所を保存してデバッグしやすくするissue.txt
+
+## リクエストとレスポンス
+    1:http.ClientRequest
+        -request引数に入っているcから送られてきた情報を管理するオブジェクト
+    2:http.ServerResponse
+        -response引数に入っているsから送り出される情報を管理するオブジェクト
+
+## 基本設定３ステップ
+    1：httpを用意するーモジュールがロードされて変数（定数）にオブジェクトとして設定=httpというモジュール名を用意
+    const http = require('http');
+    2：createServerメソッドでhttp.Serverオブジェクトを作成
+    var server = http.createServer(
+        // c要求→s, s返信→c アクセスされると実行される処理
+        (request, response) => {
+            // 返信する.終了する(テキスト部分を表示)
+            response.end('Hello Node.js!');
+        }
+    );
+    3：待ち受け開始
+    server.listen(3000);
