@@ -15,9 +15,11 @@
 const http = require('http');
 const fs = require('fs');
 const ejs = require('ejs');
+const path = require('path'); // Vercelデプロイ用
 
 // ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
-const index_page = fs.readFileSync('./index.ejs', 'utf8');
+const indexFilePath = path.join(__dirname, 'index.ejs');
+const index_page = fs.readFileSync(indexFilePath, 'utf8');
 
 var server = http.createServer(getFromClient);
 
