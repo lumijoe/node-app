@@ -1,4 +1,4 @@
-// list2-6(p79)1107
+// list2-8(p88)1108
 // app.js
 
 /* 
@@ -14,6 +14,10 @@
 
 const http = require('http');
 const fs = require('fs');
+const ejs = require('ejs');
+
+// ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
+const index_page = fs.readFileSync('./index.ejs', 'utf8');
 
 var server = http.createServer(getFromClient);
 
@@ -23,15 +27,9 @@ console.log('Server start!');
 // ここまでメインプログラム========
 
 // createServerの処理
-function getFromClient(req, res) {
-    request = req;
-    response = res;
-    // ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
-    fs.readFile('./index.html', 'UTF-8',
-        (error, data) => {
-            response.writeHead(200, { 'Content-Type': 'text/html' });
-            response.write(data);
-            response.end();
-        }
-    );
+function getFromClient(request, response) {
+    var content = ejs.render(index_page);
+        response.writeHead(200, { 'Content-Type': 'text/html' });
+        response.write(content);
+        response.end();
 }
