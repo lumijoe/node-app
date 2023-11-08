@@ -18,8 +18,8 @@ const ejs = require('ejs');
 const path = require('path'); // Vercelデプロイ用
 
 // ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
-const indexFilePath = path.join(__dirname, 'index.ejs');
-const index_page = fs.readFileSync(indexFilePath, 'utf8');
+const indexFilePath = path.join(__dirname, './index.ejs');
+const index_page = fs.readFileSync(indexFilePath, 'utf-8');
 
 var server = http.createServer(getFromClient);
 
@@ -32,7 +32,7 @@ console.log('Server start!');
 function getFromClient(request, response) {
     var content = ejs.render(index_page, {
         title:"Indexページ",
-        content:"これはテンプレートを使ったサンプルページです。"
+        content:"これはテンプレートを使ったサンプルページです。",
     });
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.write(content);
