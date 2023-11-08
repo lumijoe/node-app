@@ -22,6 +22,7 @@ const url = require('url')
 // const indexFilePath = path.join(__dirname, './index.ejs');
 const index_page = fs.readFileSync('./index.ejs', 'utf-8');
 
+
 var server = http.createServer(getFromClient);
 
 server.listen(3000);
