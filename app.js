@@ -16,12 +16,16 @@ const http = require('http');
 const fs = require('fs').promises;
 const ejs = require('ejs');
 const url = require('url');
+const path = require('path');
 
 // ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
 // 各種ファイルの読み込み
-const readIndexPage = fs.readFile('./index.ejs', 'utf-8');
+const readIndexPage = fs.readFile(path.join(__dirname, 'index.ejs'), 'utf-8')
+  .catch(err => {
+     console.error('Error reading index.ejs:', err);
+     return '';
+  });
 const readOtherPage = fs.readFile('./other.ejs', 'utf-8');
-const readStyleCss = fs.readFile('./style.css', 'utf-8');
 
 var server = http.createServer(getFromClient);
 
