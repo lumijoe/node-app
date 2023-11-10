@@ -1,4 +1,4 @@
-// list2-10(p92)1108
+// list2-13(p100)1110
 // app.js
 
 /* 
@@ -15,13 +15,12 @@
 const http = require('http');
 const fs = require('fs');
 const ejs = require('ejs');
-// const path = require('path'); // Vercelデプロイ用
-const url = require('url')
+const url = require('url');
 
 // ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
-// const indexFilePath = path.join(__dirname, './index.ejs');
+// indexとstyleファイルの読み込み
 const index_page = fs.readFileSync('./index.ejs', 'utf-8');
-
+const style_css = fs.readFileSync('./style.css', 'utf-8');
 
 var server = http.createServer(getFromClient);
 
@@ -32,13 +31,30 @@ console.log('Server start!');
 
 // createServerの処理
 function getFromClient(request, response) {
-    var content = ejs.render(index_page, {
-        title:"Indexページ",
-        content:"これはテンプレートを使ったサンプルページです。",
-    });
-        response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.write(content);
-        response.end();
+    var url_parts = url.parse(request.url);
+    switch (url_parts.pathname) {
+
+        case '/':
+            var content = ejs.render(index_page, {
+                title:"Indexページ",
+                content:"これはテンプレートを使ったサンプルページです。",
+            });
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(content);
+            response.end();
+            break;
+
+        case '/style.css':
+            response.writeHead(200, { 'Content-Type': 'text/css' });
+            response.write(style_css);
+            response.end();
+            break;
+
+        default:
+            response.writeHead(200, { 'Content-Type': 'text/plain' });
+            response.write('no page...');
+            break;
+    }   
 }
 
 // 11081620 nodev18.16.1 
