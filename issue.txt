@@ -62,4 +62,44 @@ function getFromClient(request, response) {
 // 11081620 nodev18.16.1 
 // 11081641 nodev14.2.0
 
+## list2-13(p100)1110:url.parseの非推奨警告あり。
+ただ、下記修正へもcrashedが発生してしまうので、教科書通りのurl.parseで実行
+const http = require('http');
+const fs = require('fs');
+const ejs = require('ejs');
+
+var server = http.createServer(getFromClient);
+
+server.listen(3000);
+console.log('Server start!');
+
+function getFromClient(request, response) {
+    var urlObject = new URL(request.url, 'http://localhost:3000');
+
+    switch (urlObject.pathname) {
+        case '/':
+            var content = ejs.render(index_page, {
+                title: "Indexページ",
+                content: "これはテンプレートを使ったサンプルページです。",
+            });
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(content);
+            response.end();
+            break;
+
+        case '/style.css':
+            response.writeHead(200, { 'Content-Type': 'text/css' });
+            response.write(style_css);
+            response.end();
+            break;
+
+        default:
+            response.writeHead(200, { 'Content-Type': 'text/plain' });
+            response.write('no page...');
+            response.end();
+            break;
+    }
+}
+
+
 

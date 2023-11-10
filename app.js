@@ -1,4 +1,4 @@
-// list2-13(p100)1110
+// list2-16(p104)1110
 // app.js
 
 /* 
@@ -18,8 +18,9 @@ const ejs = require('ejs');
 const url = require('url');
 
 // ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
-// indexとstyleファイルの読み込み
+// 各種ファイルの読み込み
 const index_page = fs.readFileSync('./index.ejs', 'utf-8');
+const other_page = fs.readFileSync('./other.ejs', 'utf-8'); // ★追加
 const style_css = fs.readFileSync('./style.css', 'utf-8');
 
 var server = http.createServer(getFromClient);
@@ -36,17 +37,21 @@ function getFromClient(request, response) {
 
         case '/':
             var content = ejs.render(index_page, {
-                title:"Indexページ",
-                content:"これはテンプレートを使ったサンプルページです。",
+                title:"Index",
+                content:"これはIndexページです。",
             });
             response.writeHead(200, { 'Content-Type': 'text/html' });
             response.write(content);
             response.end();
             break;
 
-        case '/style.css':
-            response.writeHead(200, { 'Content-Type': 'text/css' });
-            response.write(style_css);
+        case '/other': // ★追加
+            var content = ejs.render(other_page, {
+                title:"Other",
+                content:"これは新しく用意したページです。",
+            });
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(content);
             response.end();
             break;
 
