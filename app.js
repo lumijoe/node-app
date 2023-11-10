@@ -13,15 +13,15 @@
 */
 
 const http = require('http');
-const fs = require('fs');
+const fs = require('fs').promises;
 const ejs = require('ejs');
 const url = require('url');
 
 // ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
 // 各種ファイルの読み込み
-const index_page = fs.readFileSync('./index.ejs', 'utf-8');
-const other_page = fs.readFileSync('./other.ejs', 'utf-8'); // ★追加
-const style_css = fs.readFileSync('./style.css', 'utf-8');
+const readIndexPage = fs.readFile('./index.ejs', 'utf-8');
+const readOtherPage = fs.readFile('./other.ejs', 'utf-8');
+const readStyleCss = fs.readFile('./style.css', 'utf-8');
 
 var server = http.createServer(getFromClient);
 
@@ -32,24 +32,27 @@ console.log('Server start!');
 // ここまでメインプログラム========
 
 // createServerの処理
-function getFromClient(request, response) {
+async function getFromClient(request, response) {
     var url_parts = url.parse(request.url);
-    switch (url_parts.pathname) {
+    let content;
 
+    switch (url_parts.pathname) {
         case '/':
-            var content = ejs.render(index_page, {
-                title:"Index",
-                content:"これはIndexページです。",
+            const indexPage = await readIndexPage;
+            content = ejs.render(indexPage, {
+                title: "Index",
+                content: "これはIndexページです。",
             });
             response.writeHead(200, { 'Content-Type': 'text/html' });
             response.write(content);
             response.end();
             break;
 
-        case '/other': // ★追加
-            var content = ejs.render(other_page, {
-                title:"Other",
-                content:"これは新しく用意したページです。",
+        case '/other':
+            const otherPage = await readOtherPage;
+            content = ejs.render(otherPage, {
+                title: "Other",
+                content: "これは新しく用意したページです。",
             });
             response.writeHead(200, { 'Content-Type': 'text/html' });
             response.write(content);
@@ -59,10 +62,7 @@ function getFromClient(request, response) {
         default:
             response.writeHead(200, { 'Content-Type': 'text/plain' });
             response.write('no page...');
+            response.end();
             break;
-    }   
+    }
 }
-
-// 11081620 nodev18.16.1 
-// 11081641 nodev14.2.0
-
