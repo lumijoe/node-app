@@ -2,7 +2,7 @@
   "name": "node-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ejs",
   "scripts": {
     "dev": "nodemon app.js",
     "ejs": "ejs-cli --base-dir ejs/ 'index.ejs' --out dest/"
