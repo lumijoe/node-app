@@ -1,4 +1,4 @@
-// list2-16(p104)1110
+// list3-1(p112)1113
 // app.js
 
 /* 
@@ -12,51 +12,43 @@
     待ち受け開始
 */
 
+// app.js 
 const http = require('http');
-const fs = require('fs').promises;
+const fs = require('fs');
 const ejs = require('ejs');
 const url = require('url');
-const path = require('path');
 
 // ファイルから読み込む処理をバックグラウンドで実行する非同期処理、readFileメソッド
 // 各種ファイルの読み込み
-const readIndexPage = fs.readFile(path.join(__dirname, 'index.ejs'), 'utf-8')
-  .catch(err => {
-     console.error('Error reading index.ejs:', err);
-     return '';
-  });
-const readOtherPage = fs.readFile('./other.ejs', 'utf-8');
+const index_page = fs.readFileSync('./index.ejs', 'utf-8');
+const other_page = fs.readFileSync('./other.ejs', 'utf-8');
+const style_css = fs.readFileSync('./style.css',  'utf-8');
 
 var server = http.createServer(getFromClient);
 
 // 開発環境でのPORT3000サーバー指定、デプロイでのVercelサーバー指定をパイプさせる
-server.listen(process.env.PORT || 3000);
+// server.listen(process.env.PORT || 3000);
+server.listen(3000);
 console.log('Server start!');
 
 // ここまでメインプログラム========
 
 // createServerの処理
-async function getFromClient(request, response) {
-    var url_parts = url.parse(request.url);
-    let content;
+function getFromClient(request, response) {
 
+    var url_parts = url.parse(request.url, true); // ☆trueにする！
     switch (url_parts.pathname) {
-        case '/':
-            const indexPage = await readIndexPage;
-            content = ejs.render(indexPage, {
-                title: "Index",
-                content: "これはIndexページです。",
-            });
-            response.writeHead(200, { 'Content-Type': 'text/html' });
-            response.write(content);
-            response.end();
-            break;
 
-        case '/other':
-            const otherPage = await readOtherPage;
-            content = ejs.render(otherPage, {
-                title: "Other",
-                content: "これは新しく用意したページです。",
+        case '/':
+            var content = "これはIndexページです。"
+            var query = url_parts.query;
+            // ブラウザアドレス欄にクエリパラメーター?msg=konnichiwa!と入力すると
+            if (query.msg != undefined) {
+                content += 'あなたは「' + query.msg + '」と送りました。'; // konnichiwa!という値が表示される
+            }
+            var content = ejs.render(index_page, {
+                title: "Index",
+                content: content,
             });
             response.writeHead(200, { 'Content-Type': 'text/html' });
             response.write(content);
