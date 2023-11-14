@@ -101,5 +101,8 @@ function getFromClient(request, response) {
     }
 }
 
+### Vercelではサーバーレス仕様で稼働しているため、Node.jsやejs仕様ではデフォルトではindex.htmlを参照しに行くことになっている。
+    
+
 
 
