@@ -102,7 +102,7 @@ function getFromClient(request, response) {
 }
 
 ### Vercelではサーバーレス仕様で稼働しているため、Node.jsやejs仕様ではデフォルトではindex.htmlを参照しに行くことになっている。
-    
+    サーバーレス関数として設定すると、Vercelでも使える可能性ありかも。  
 
 
 
