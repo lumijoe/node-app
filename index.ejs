@@ -1,4 +1,4 @@
-<!-- list3-2(p115)1114  -->
+<!-- list3-5(p126)1114  -->
 <!-- index.ejs -->
 
 <!DOCTYPE html>
@@ -18,10 +18,14 @@
     </header>
     <div role="main">
         <p><%= content %></p>
-        <form method="post" action="/other">
-            <input type="text" name="msg" class="form-control">
-            <input type="submit" value="Click" class="btn btn-primary">
-        </form>
+        <table class="table">
+            <% for(var key in data) { %>
+            <tr>
+                <th><%= key %></th>
+                <td><%= data[key] %></td>
+            </tr>
+            <% } %>
+        </table>
     </div>
 </body>
 
