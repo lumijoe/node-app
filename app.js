@@ -1,4 +1,4 @@
-// list3-4(p125)1114
+// list3-8(p131)1115
 // app.js
 
 /* 
@@ -77,6 +77,7 @@ function response_index(request, response) {
         title: "Index",
         content: msg,
         data: data,
+        filename: 'data_item' // ★追記
     });
     response.writeHead(200, { 'Content-Type': 'text/html' });
     response.write(content);

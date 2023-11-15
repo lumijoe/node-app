@@ -1,4 +1,4 @@
-<!-- list3-5(p126)1114  -->
+<!-- list3-10(p133)1115  -->
 <!-- index.ejs -->
 
 <!DOCTYPE html>
@@ -18,14 +18,11 @@
     </header>
     <div role="main">
         <p><%= content %></p>
-        <table class="table">
-            <% for(var key in data) { %>
-            <tr>
-                <th><%= key %></th>
-                <td><%= data[key] %></td>
-            </tr>
+        <% var id = 0; %>
+        <% for(var key in data) { %>
+            <%- include('data_item', 
+                {id:++id, key:key, val:[data[key]]}) %>
             <% } %>
-        </table>
     </div>
 </body>
 
