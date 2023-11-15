@@ -1,4 +1,4 @@
-<!-- list2-14(p102)1110 -->
+<!-- list3-12(p134)1115 -->
 <!-- other.ejs -->
 
 <!DOCTYPE html>
@@ -14,10 +14,15 @@
 
 <body class="container">
     <header>
-        <h1 class="display-4"><%= title %></h1>
+      <h1 class="display-4"><%=title %></h1>
     </header>
     <div role="main">
-        <p><%= content %></p>
+      <p><%=content %></p>
+      <% var id = 0; %>
+      <% for(var key in data) { %>
+      <%- include('data_item', 
+            {id:++id, key:key, val:[data[key]]}) %>
+      <% } %>
     </div>
 </body>
 

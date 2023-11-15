@@ -1,15 +1,14 @@
 <!-- list3-9(p132)1115 -->
 <!-- data_item.ejs -->
 
-<table class="table tabel-dark">
+<table class="table table-dark">
     <tr>
         <th><%= id %>:
             <%= key %></th>
     </tr>
-    <%= for(var i in val){ %>
+    <% for(var i in val){ %>
     <tr>
         <td><%= val[i] %></td>
     </tr>
     <% } %>
 </table>
-
