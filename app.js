@@ -28,8 +28,8 @@ const style_css = fs.readFileSync('./style.css', 'utf-8');
 var server = http.createServer(getFromClient);
 
 // 開発環境でのPORT3000サーバー指定、デプロイでのVercelサーバー指定をパイプさせる
-// server.listen(process.env.PORT || 3000);
-server.listen(3000);
+// server.listen(process.env.PORT || 3002);
+server.listen(3002);
 console.log('Server start!');
 
 // ここまでメインプログラム========
