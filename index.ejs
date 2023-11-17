@@ -1,4 +1,4 @@
-<!-- list3-13(p136)1115  -->
+<!-- list3-15(p140)1117  -->
 <!-- index.ejs -->
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@
         crossorigin="anonymous">
 </head>
 
-<body class=" container">
+<body class="container">
     <header>
         <h1 class="display-4"><%= title %></h1>
     </header>
@@ -26,6 +26,9 @@
                 <td><%= data.msg %></td>
             </tr>
         </table>
+        <!-- クッキー利用のためのcookie_data -->
+        <p>your last message:<%= cookie_data %></p>
+
         <form method="post" action="/">
             <div class="form-group">
                 <label for="msg">MESSAGE</label>

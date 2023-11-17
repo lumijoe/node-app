@@ -1,4 +1,4 @@
-// list3-14(p137)1115
+// list3-16(p141)1117
 // app.js
 
 /* 
@@ -27,7 +27,7 @@ const style_css = fs.readFileSync('./style.css', 'utf-8');
 
 var server = http.createServer(getFromClient);
 
-// 開発環境でのPORT3000サーバー指定、デプロイでのVercelサーバー指定をパイプさせる
+// 開発環境でのPORTサーバー指定、デプロイでのVercelサーバー指定をパイプさせる
 // server.listen(process.env.PORT || 3002);
 server.listen(3002);
 console.log('Server start!');
@@ -78,9 +78,9 @@ var data2 = {
 };  
 
 // ★indexのアクセス処理
-
+// データ
 var data = { msg: 'no message...' };
-
+// indexのアクセス処理
 function response_index(request, response) {
     // POSTアクセス時の処理
     if (request.method == 'POST') {
@@ -93,7 +93,9 @@ function response_index(request, response) {
 
         // データ受信終了のイベント処理
         request.on('end', () => {
-            data = qs.parse(body);  // ★データのパース
+            data = qs.parse(body);
+            // クッキーの保存
+            setCookie('msg', data.msg, response);
             write_index(request, response);
         });
     } else {
@@ -114,13 +116,15 @@ function response_index(request, response) {
 }
 */
 
-// indexの表示の作成
+// indexのページ作成
 function write_index(request, response) {
     var msg = "※伝言を表示します。"
+    var cookie_data = getCookie('msg', request);
     var content = ejs.render(index_page, {
         title: "Index",
         content: msg,
         data: data,
+        cookie_data: cookie_data,
     });
     response.writeHead(200, { 'Content-Type': 'text/html' });
     response.write(content);
@@ -139,6 +143,26 @@ function response_other(request, response) {
     response.writeHead(200, { 'Content-Type': 'text/html' });
     response.write(content);
     response.end();
+}
+
+// クッキーの値を設定
+function setCookie(key, value, response) {
+    var cookie = escape(value);
+    response.setHeader('Set-Cookie', [key + '=' + cookie]);
+}
+
+// クッキーの値を取得
+function getCookie(key, request) {
+    var cookie_data = request.headers.cookie != undefined ?
+        request.headers.cookie : '';
+    var data = cookie_data.split(';');
+    for (var i in data) {
+        if (data[i].trim().startsWith(key + '=')) {
+            var result = data[i].trim().substring(key.length + 1);
+            return unescape(result);
+        }
+    }
+    return '';
 }
 
 /* list3−12（p134）1115実装でコメントアウト
