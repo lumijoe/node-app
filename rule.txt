@@ -1,6 +1,6 @@
 ## 実行コマンドとローカルホストと終了コマンド
 1:node app.js　
-2:http://localhost:3000
+2:http://localhost:3002
 3:リロードは面倒作業（終了して再リロード）またはnodemonの利用
 ctrl+c
 nodebrew use v14.2.0
